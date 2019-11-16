@@ -10,15 +10,16 @@ simple typical snake game based on pygame framework.
 
 
 ## Play it
-### clone repository:
+clone repository:
 ```
-| git clone https://github.com/rdilare/pygame-snake.git
+git clone https://github.com/rdilare/pygame-snake.git
 ```
 
 ```
 cd pygame-snake
 ```
 
+run the game 
 ```
 python3 app.py
 ```
