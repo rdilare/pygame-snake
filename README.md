@@ -19,6 +19,11 @@ git clone https://github.com/rdilare/pygame-snake.git
 cd pygame-snake
 ```
 
+requirements(prefere using a virtual-environment):
+```
+pip3 install -r requirements.txt
+```
+
 run the game 
 ```
 python3 app.py
