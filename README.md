@@ -9,9 +9,10 @@ simple typical snake game based on pygame framework.
 ![GitHub Logo](/images/mainMenu.png)  ![GitHub Logo](/images/score.png)
 
 
-
+## Play it
+### clone repository:
 ```
-git clone https://github.com/rdilare/pygame-snake.git
+| git clone https://github.com/rdilare/pygame-snake.git
 ```
 
 ```
