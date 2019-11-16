@@ -11,6 +11,6 @@ simple typical snake game based on pygame framework.
 sde
 
 
-'''
+```
 git clone https://github.com/rdilare/pygame-snake.git
-'''
+```
