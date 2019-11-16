@@ -53,7 +53,7 @@ class GamePlay(BaseWindow):
 		self.bg.fill((100,50,190))
 		self.clock = pygame.time.Clock()
 		self.highScore = getScore()[0]["score"]
-		self.fps = 1 
+		self.fps = 15 
 
 		self._objects = snake,food = [Snake(),Food()]
 
