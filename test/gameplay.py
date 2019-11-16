@@ -5,9 +5,9 @@
 import pygame, sys
 
 from layout import Button, Menu
-from leaderbord import LeaderBoard
 from objects import *
-from window import baseWindow
+from window import BaseWindow, Window
+from handleScore import getScore, saveScore
 
 pygame.init()
 
@@ -36,35 +36,31 @@ def allowedEvent():
 
 def printText(surf,pos,text):
     font = pygame.font.SysFont("comicsansms", 25)
-    text = font.render(str(text), True, (255,150,0))
+    text = font.render(str(text), True, (10,10,10))
     surf.blit(text,pos)
 
-def pauseMenu(surf):
-	w,h = pygame.display.get_surface().get_size()
-	resume = Button((w//2-50,200),(80,40), "resume")
-	mainMenu = Button((100,250),(80,40), "menu")
-
-	pygame.draw.rect(surf,(255,0,0),((w//2)-120,(h//2)-150,240,300))
-
-	resume.checkEvents()
-	mainMenu.checkEvents()
-
-	resume.draw(surf)
-	mainMenu.draw(surf)
 
 
-class GamePlay(baseWindow):
+
+def changetoMainMenu():
+	Window.setWindowName("MainMenu")
+
+class GamePlay(BaseWindow):
 	def __init__(self):
 		super().__init__()
 		self.size = (w,h) = (400,600)
 		self.bg = pygame.Surface((w,h))
 		self.bg.fill((100,50,190))
 		self.clock = pygame.time.Clock()
+		self.highScore = getScore()[0]["score"]
+		self.fps = 1 
 
 		self._objects = snake,food = [Snake(),Food()]
 
-		self.button = Button((100,500),(80,40), "pause",snake.stop)
-		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["resume","menu"],[snake.resume,None])
+		self.pauseButton = Button((w//2+160-80,500),(80,40), "Pause",snake.stop)
+		self.mainMenuButton = Button((w//2-160,500),(80,40), "Menu",changetoMainMenu)
+		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[snake.resume,changetoMainMenu])
+
 
 		allowedEvent()
 
@@ -83,7 +79,8 @@ class GamePlay(baseWindow):
 		for o in self._objects:
 			o.checkEvents(ev)
 
-		self.button.checkEvents()
+		self.pauseButton.checkEvents()
+		self.mainMenuButton.checkEvents()
 
 		if self._objects[0].isstop:
 			self.pause_menu.checkEvents()
@@ -94,89 +91,25 @@ class GamePlay(baseWindow):
 		snake.eat(food)
 
 	def draw(self,surf):
+		w,h = self.size
 		snake = self._objects[0]
 		surf.blit(self.bg,(0,0))
 
 		for o in self._objects:
 			o.draw(surf)
 
-		self.button.draw(surf)
+		pygame.draw.rect(surf,(80,30,150),pygame.Rect((0,498), (400,600-498)))
+		pygame.draw.line(surf,(50,50,50),(0,498),(400,498),1)
+
+		self.pauseButton.draw(surf)
+		self.mainMenuButton.draw(surf)
+
 		if snake.isstop:
+			color = pygame.Color(80, 30, 150, a=10)
+			color.a=0
+			# pygame.draw.rect(surf,color,pygame.Rect((w//2-140,h//2-(50)*2), (400,600-498)))
 			self.pause_menu.draw(surf)
 
-		printText(surf,(0,0),"score: {}".format(snake.score))
-		printText(surf,(250,0),"Highscre: {}".format(LeaderBoard.getdata()[0]["score"]))
+		printText(surf,(0,0),"SCORE: {}".format(snake.score))
+		printText(surf,(250,0),"HIGHSCORE: {}".format(self.highScore))
 
-
-
-def main():
-
-	screen = pygame.display.set_mode((400,600))
-
-	w,h = screen.get_size()
-
-	snake = Snake()
-	food = Food()
-
-
-	button = Button((100,500),(80,40), "pause",snake.stop)
-	pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["resume","menu"],[snake.resume,None])
-	
-	clock = pygame.time.Clock()
-
-	allowedEvent()
-
-
-
-	ev = pygame.event.peek()
-
-	running = True
-	while running:
-		clock.tick(10)
-
-
-
-		for ev in pygame.event.get():
-			if ev.type == pygame.QUIT:
-				running = False
-			if ev.type == pygame.KEYDOWN:
-				if ev.key == pygame.K_ESCAPE:
-					# running = False
-					quit()
-
-			snake.checkEvents(ev)
-			food.checkEvents(ev)
-			button.checkEvents()
-
-
-		screen.fill((100,50,190))
-		
-		pygame.event.clear()
-
-		snake.move()
-		snake.eat(food)
-
-		food.draw(screen)
-		button.draw(screen)
-		snake.draw(screen)
-
-		if snake.isstop:
-			pause_menu.checkEvents()
-			pause_menu.draw(screen)
-			pass
-
-		printText(screen,(0,0),"score: {}".format(snake.score))
-		printText(screen,(250,0),"Highscre: {}".format(LeaderBoard.getdata()[0]["score"]))
-
-
-
-		pygame.display.update()
-
-
-
-
-
-# main()
-
-if __name__=="__main__":
-	main()

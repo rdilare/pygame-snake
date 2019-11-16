@@ -6,7 +6,8 @@ class Button:
 	def __init__(self,pos,size,text,action = None):
 		self.pos = pos
 		self.size = size
-		font = pygame.font.SysFont("comicsansms",20)
+		# font = pygame.font.SysFont("comicsansms",20)
+		font = pygame.font.SysFont("poppins",20)
 		self.text = font.render(text, True, (0,0,0))
 		self.color = (0,100,250)
 		self.action = action
