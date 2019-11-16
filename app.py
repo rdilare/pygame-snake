@@ -26,8 +26,7 @@ def main():
 				running = False
 			if ev.type == pygame.KEYDOWN:
 				if ev.key == pygame.K_ESCAPE:
-					# running = False
-					quit()
+					running = False
 
 			Window.current.checkEvents(ev)
 
@@ -35,8 +34,6 @@ def main():
 		Window.current.draw(screen)
 
 		if not isinstance(Window.current, windows[Window.name]):
-			# Window.current = windows[Window.name]
-			# Window.current = current()
 			className = windows[Window.name]
 			Window.setWindow(className())
 

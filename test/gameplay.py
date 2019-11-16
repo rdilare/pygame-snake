@@ -7,7 +7,7 @@ import pygame, sys
 from layout import Button, Menu
 from objects import *
 from window import BaseWindow, Window
-from handleScore import getScore, saveScore
+from handleScore import getScore
 
 pygame.init()
 

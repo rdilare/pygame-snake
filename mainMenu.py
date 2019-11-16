@@ -1,13 +1,9 @@
 
 import pygame, sys
-import gameplay
-import leaderbord
 
 from layout import Menu
 from window import Window
 from window import BaseWindow
-from gameplay import GamePlay
-from leaderbord import LeaderBoard
 
 pygame.init()
 

@@ -7,7 +7,7 @@ import pygame, sys
 from layout import Button, Menu
 from objects import *
 from window import BaseWindow, Window
-from handleScore import getScore, saveScore
+from handleScore import getScore
 
 pygame.init()
 
@@ -53,7 +53,7 @@ class GamePlay(BaseWindow):
 		self.bg.fill((100,50,190))
 		self.clock = pygame.time.Clock()
 		self.highScore = getScore()[0]["score"]
-		self.fps = 1 
+		self.fps = 15 
 
 		self._objects = snake,food = [Snake(),Food()]
 
