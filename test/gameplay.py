@@ -61,7 +61,7 @@ class GamePlay(BaseWindow):
 		self.pauseButton = Button((w//2+160-80,500),(80,40), "Pause",snake.stop)
 		self.mainMenuButton = Button((w//2-160,500),(80,40), "Menu",changetoMainMenu)
 		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[snake.resume,changetoMainMenu])
-		self.music = pygame.mixer.Sound('TS - Beat Y.ogg')
+		self.music = pygame.mixer.Sound('sounds/TS - Beat Y.ogg')
 		self.music.play(loops=-1, maxtime=0, fade_ms=1000)
 
 

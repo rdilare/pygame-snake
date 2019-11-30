@@ -10,6 +10,7 @@ from window import BaseWindow, Window
 from handleScore import getScore
 
 pygame.init()
+pygame.mixer.init()
 
 
 
@@ -60,9 +61,13 @@ class GamePlay(BaseWindow):
 		self.pauseButton = Button((w//2+160-80,500),(80,40), "Pause",snake.stop)
 		self.mainMenuButton = Button((w//2-160,500),(80,40), "Menu",changetoMainMenu)
 		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[snake.resume,changetoMainMenu])
+		self.music = pygame.mixer.Sound('sounds/TS - Beat Y.ogg')
+		self.music.play(loops=-1, maxtime=0, fade_ms=1000)
 
 
 		allowedEvent()
+	def __del__(self):
+		self.music.stop()
 
 	def quit(self):
 		pygame.quit()
@@ -82,8 +87,15 @@ class GamePlay(BaseWindow):
 		self.pauseButton.checkEvents()
 		self.mainMenuButton.checkEvents()
 
-		if self._objects[0].isstop:
+		snake = self._objects[0]
+		if snake.isstop:
 			self.pause_menu.checkEvents()
+
+			pygame.mixer.pause()
+		else :
+			pygame.mixer.unpause()
+
+		
 
 	def update(self):
 		snake,food = self._objects

@@ -27,3 +27,8 @@ python3 app.py
 ![GitHub Logo](/images/gamePlay.png)  ![GitHub Logo](/images/pauseMenu.png)
 ![GitHub Logo](/images/mainMenu.png)  ![GitHub Logo](/images/score.png)
 
+
+
+## Credits:
+
+[patrickdearteaga.com](https://patrickdearteaga.com)
