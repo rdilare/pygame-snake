@@ -68,6 +68,7 @@ class Snake():
 		self.head = Block()
 		self.body = [Block() for i in range(5)]
 		self.isstop = False
+		self.isdead = False
 		self.head.color = (0,0,0)
 		self.step = grid.cellsize
 		self.direction = [1,0]
@@ -116,17 +117,22 @@ class Snake():
 	#------------Collision detection with body-----------------
 		for i in self.body:
 			if newheadpos == i.pos:
+				self.isdead=True
 				self.stop()
 				break
 
 	#------------Collision detection with Boundaries-----------------
 		if newheadpos[0]<0:
+			self.isdead = True
 			self.stop()
 		if newheadpos[0] + self.head.size[0]>w:
+			self.isdead = True
 			self.stop()
 		if newheadpos[1]<0:
+			self.isdead = True
 			self.stop()
 		if newheadpos[1] + self.head.size[1]>h:
+			self.isdead = True
 			self.stop()
 
 
@@ -148,8 +154,11 @@ class Snake():
 
 	def stop(self):
 		self.isstop = True
+		pygame.mixer.pause()
 	def resume(self):
 		self.isstop = False
+	def restart(self):
+		self.__init__()
 
 	def eat(self,f):
 

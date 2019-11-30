@@ -61,6 +61,7 @@ class GamePlay(BaseWindow):
 		self.pauseButton = Button((w//2+160-80,500),(80,40), "Pause",snake.stop)
 		self.mainMenuButton = Button((w//2-160,500),(80,40), "Menu",changetoMainMenu)
 		self.pause_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["Resume","Menu"],[snake.resume,changetoMainMenu])
+		self.restart_menu = Menu((w//2-40,h//2-(20)*2),(80,40),["restart","Menu"],[snake.restart,changetoMainMenu])
 		self.music = pygame.mixer.Sound('sounds/TS - Beat Y.ogg')
 		self.music.play(loops=-1, maxtime=0, fade_ms=1000)
 
@@ -88,10 +89,10 @@ class GamePlay(BaseWindow):
 		self.mainMenuButton.checkEvents()
 
 		snake = self._objects[0]
-		if snake.isstop:
+		if snake.isstop and not snake.isdead:
 			self.pause_menu.checkEvents()
-
-			pygame.mixer.pause()
+		elif snake.isdead:
+			self.restart_menu.checkEvents()
 		else :
 			pygame.mixer.unpause()
 
@@ -116,11 +117,13 @@ class GamePlay(BaseWindow):
 		self.pauseButton.draw(surf)
 		self.mainMenuButton.draw(surf)
 
-		if snake.isstop:
+		if snake.isstop and not snake.isdead:
 			color = pygame.Color(80, 30, 150, a=10)
 			color.a=0
 			# pygame.draw.rect(surf,color,pygame.Rect((w//2-140,h//2-(50)*2), (400,600-498)))
 			self.pause_menu.draw(surf)
+		elif snake.isdead:
+			self.restart_menu.draw(surf)
 
 		printText(surf,(0,0),"SCORE: {}".format(snake.score))
 		printText(surf,(250,0),"HIGHSCORE: {}".format(self.highScore))
